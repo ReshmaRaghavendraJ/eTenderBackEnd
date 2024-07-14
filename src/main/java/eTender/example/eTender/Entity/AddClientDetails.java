@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -13,7 +14,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -43,12 +43,23 @@ public class AddClientDetails
 	}
 	
 	@Id
-	private int Clientid;
-	private String ClientPersonName;
-	private String Phoneno;
-	private String Emailid;
-	private String Address;
-	private String Password;
+	@Column(name="Clientid")
+	private int clientid;
+	
+	@Column(name="ClientPersonName")
+	private String clientPersonName;
+	
+	@Column(name="Phoneno")
+	private String phoneno;
+	
+	@Column(name="Emailid")
+	private String emailid;
+	
+	@Column(name="Address")
+	private String address;
+	
+	@Column(name="Password")
+	private String password;
 	
 	public AddClientDetails() 
 	 {
@@ -59,7 +70,7 @@ public class AddClientDetails
 	 public void generateClientid() {
 	        Random random = new Random();
 	        int randomValue = (random.nextInt(90000) + 10000); // Generate a random number between 10000 and 99999
-	        this.Clientid = randomValue;
+	        this.clientid = randomValue;
 	    }
 	 
 	 public void generatePassword()
@@ -70,55 +81,55 @@ public class AddClientDetails
 	            int index = random.nextInt(CHARACTERS.length());
 	            passwordBuilder.append(CHARACTERS.charAt(index));
 	        }
-	        this.Password = passwordBuilder.toString();
+	        this.password = passwordBuilder.toString();
 	    }
 	
 	public int getClientid() {
-		return Clientid;
+		return clientid;
 	}
 
 	public void setClientid(int clientid) {
-		Clientid = clientid;
+		clientid = clientid;
 	}
 
 	public String getClientPersonName() {
-		return ClientPersonName;
+		return clientPersonName;
 	}
 
 	public void setClientPersonName(String clientPersonName) {
-		ClientPersonName = clientPersonName;
+		clientPersonName = clientPersonName;
 	}
 
 	public String getPhoneno() {
-		return Phoneno;
+		return phoneno;
 	}
 
 	public void setPhoneno(String phoneno) {
-		Phoneno = phoneno;
+		phoneno = phoneno;
 	}
 
 	public String getEmailid() {
-		return Emailid;
+		return emailid;
 	}
 
 	public void setEmailid(String emailid) {
-		Emailid = emailid;
+		emailid = emailid;
 	}
 
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 
 	public void setAddress(String address) {
-		Address = address;
+		address = address;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		password = password;
 	}
 
 	@ManyToOne

@@ -1,16 +1,17 @@
 package eTender.example.eTender.Entity;
 
 import java.time.LocalDate;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.util.Date;
 import java.util.Random;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,15 @@ import lombok.Setter;
 public class ClientFeedback 
 {
 	@Id
-	private int Feedbackno;
-	private String Feedback;
+	@Column(name="Feedbackno")
+	private int feedbackno;
+	
+	@Column(name="Feedback")
+	private String feedback;
 	
 	@Temporal(TemporalType.DATE)
-	private Date FeedbackDate;
+	@Column(name="FeedbackDate")
+	private Date feedbackDate;
 	
 	public ClientFeedback() 
 	 {
@@ -40,7 +45,7 @@ public class ClientFeedback
 	 {
 	        Random random = new Random();
 	        int randomValue = (random.nextInt(90000) + 10000); // Generate a random number between 10000 and 99999
-	        this.Feedbackno = randomValue;
+	        this.feedbackno = randomValue;
 	 } 
 	
 	 public LocalDate getCurrentDate() 
@@ -49,22 +54,22 @@ public class ClientFeedback
 	 }
 	 
 	public int getFeedbackno() {
-		return Feedbackno;
+		return feedbackno;
 	}
 	public void setFeedbackno(int feedbackno) {
-		Feedbackno = feedbackno;
+		feedbackno = feedbackno;
 	}
 	public String getFeedback() {
-		return Feedback;
+		return feedback;
 	}
 	public void setFeedback(String feedback) {
-		Feedback = feedback;
+		feedback = feedback;
 	}
 	public Date getFeedbackDate() {
-		return FeedbackDate;
+		return feedbackDate;
 	}
 	public void setFeedbackDate(Date feedbackDate) {
-		FeedbackDate = feedbackDate;
+		feedbackDate = feedbackDate;
 	}
 	
 	public AddClientProjectwork getAddclientprojectwork() 

@@ -1,5 +1,6 @@
 package eTender.example.eTender.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.eTender.dto.BidderInfoDTO;
 
 import eTender.example.eTender.Entity.BidderRegistration;
 import eTender.example.eTender.Repository.BidderRegistrationRepo;
@@ -49,6 +52,18 @@ public class BidderRegistrationController
         {
         	var Bidderslist=bidderregrepo.findAll();
     		return new ResponseEntity <>(Bidderslist,HttpStatus.OK);
+        }
+        
+        /*this API is for displaying all Bidders in Tender Dashboard(Frontend)*/
+        @GetMapping("/GetAlltodisplayBidders/{tenderid}")
+        public ResponseEntity<?>GetAlltodisplayBidders(@PathVariable Integer tenderid)
+        {
+        	List<BidderInfoDTO> bidderList = bidderregrepo.findByTenderId(tenderid);
+        	if (bidderList.isEmpty())
+			 {
+			        return new ResponseEntity<>("No Bidders found for the given Tender", HttpStatus.NOT_FOUND);
+			    }
+            return new ResponseEntity<>(bidderList, HttpStatus.OK);
         }
     }
 

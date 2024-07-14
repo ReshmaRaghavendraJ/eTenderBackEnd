@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.eTender.dto.QuotationInfoDTO;
 
 import eTender.example.eTender.Entity.ApplyTender;
 import eTender.example.eTender.Entity.BidderRegistration;
@@ -99,6 +103,44 @@ public class ApplyTenderController
 		else
 		{
 			return new ResponseEntity<>("Date is expired or Date is not yet started", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	/*this API is for displaying tender Quotation of Bidder in Tender Dashboard(Frontend)*/
+	@GetMapping("/Gettodisplaytenderquotation/{bidderid}/{tenderid}")
+	public ResponseEntity<?>Gettodisplaytenderquotation(@PathVariable Integer bidderid,@PathVariable Integer tenderid)
+	{
+		List<QuotationInfoDTO>quotationlist=applytenderrepo.joinInfo(bidderid,tenderid);
+		if (quotationlist.isEmpty())
+			 {
+			        return new ResponseEntity<>("No Quotation found for the given Bidderid", HttpStatus.NOT_FOUND);
+			 }
+		return new ResponseEntity<>(quotationlist,HttpStatus.OK);
+	}
+	
+	/*this API is for Approve Tender in Tender Dashboard(frontend)*/
+	@PutMapping("/ApproveTender/{tenderid}/{bidderid}")
+	public ResponseEntity<?>ApproveTender(@PathVariable Integer tenderid,@PathVariable Integer bidderid)
+	{	
+		Optional<ApplyTender> L=applytenderrepo.findByTenderid(tenderid,bidderid);
+		if(L.isPresent())
+		{
+			ApplyTender obj1=L.get();
+			 if ("Approved".equals(obj1.getStatus())) 
+			 {
+		            return new ResponseEntity<>("Tender is already Approved", HttpStatus.BAD_REQUEST);
+		     }
+			 else 
+			 {
+			obj1.setStatus("Approved");	
+			applytenderrepo.save(obj1);
+			System.out.println("Updated status to Approved for Tender ID: " + tenderid + ", Bidder ID: " + bidderid);
+			return new ResponseEntity<>("Tender Approved Successfully",HttpStatus.OK);
+			 }
+		}
+		else
+		{
+			return new ResponseEntity<>("Tender Id not found",HttpStatus.OK);
 		}
 	}
 }

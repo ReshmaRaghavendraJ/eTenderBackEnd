@@ -48,4 +48,19 @@ public class CreateTenderController {
 		List<Category> list = categoryrepo.findAll();
 		return new ResponseEntity<>(list, HttpStatus.OK);		
 	}
+	
+	/*this API is for displaying category drop down list*/
+	@GetMapping("/GetCategorylisttodisplaytender")
+	public ResponseEntity <?> GetCategorytoapplytender()
+	{
+		List<CreateTender>categoriesinfo = createtenderrepo.findAll();
+		return new ResponseEntity<>(categoriesinfo, HttpStatus.OK);
+	}
+	
+	@GetMapping("/GetAlltodisplayTenders")
+	public ResponseEntity<?>GetAllTenders()
+	 { 
+			var tenderlist=createtenderrepo.findAll();
+			return new ResponseEntity<>(tenderlist,HttpStatus.OK);
+	 }
 }

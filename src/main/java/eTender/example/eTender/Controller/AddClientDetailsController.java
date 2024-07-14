@@ -1,5 +1,6 @@
 package eTender.example.eTender.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.eTender.dto.ClientInfoDTO;
 
 import eTender.example.eTender.Entity.AddClientDetails;
 import eTender.example.eTender.Entity.BidderRegistration;
@@ -59,4 +62,17 @@ public class AddClientDetailsController
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Userid not found");
         }
 	}
+	
+	 /*this API is for displaying all Client Details in Tender Dashboard(Frontend)*/
+		@GetMapping("/GetAlltodisplayClient/{bidderid}")
+        public ResponseEntity<?>GetAlltodisplayClient(@PathVariable Integer bidderid)
+        {
+			System.out.println("the bidderid is "+bidderid);
+			List<ClientInfoDTO>Clientlist=addclientdetailsrepo.findClientDetailsByBidderId(bidderid);
+			 if (Clientlist.isEmpty())
+			 {
+			        return new ResponseEntity<>("No Clients found for the given Bidder", HttpStatus.NOT_FOUND);
+			 }
+			    return new ResponseEntity<>(Clientlist, HttpStatus.OK);
+        }
 }

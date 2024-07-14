@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -19,16 +20,27 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class BidderRegistration 
 {
 	@Id
-	private int Bidderid;
-	private String BidderName;
-	private String Emailid;
-	private String Password;
-	private String Mobileno;	
-	private String Address;
+	@Column(name = "Bidderid")
+	private int bidderid;
+	
+	 @Column(name = "BidderName")
+	private String bidderName;
+	 
+	 @Column(name = "Emailid")
+	private String emailid;
+	 
+	 @Column(name = "Password")
+	private String password;
+	 
+	 @Column(name = "Mobileno")
+	private String mobileno;	
+	 
+	 @Column(name = "Address")
+	private String address;
 	
 	 public BidderRegistration() 
 	 {
@@ -39,45 +51,45 @@ public class BidderRegistration
 	 public void generateBidderid() {
 	        Random random = new Random();
 	        int randomValue = (random.nextInt(90000) + 10000); // Generate a random number between 10000 and 99999
-	        this.Bidderid = randomValue;
+	        this.bidderid = randomValue;
 	    }
 	
 	
 	public int getBidderid() {
-		return Bidderid;
+		return bidderid;
 	}
 	public void setBidderid(int bidderid) {
-		Bidderid = bidderid;
+		bidderid = bidderid;
 	}
 	public String getBidderName() {
-		return BidderName;
+		return bidderName;
 	}
 	public void setBidderName(String bidderName) {
-		BidderName = bidderName;
+		bidderName = bidderName;
 	}
 	public String getEmailid() {
-		return Emailid;
+		return emailid;
 	}
 	public void setEmailid(String emailid) {
-		Emailid = emailid;
+		emailid = emailid;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		password = password;
 	}
 	public String getMobileno() {
-		return Mobileno;
+		return mobileno;
 	}
 	public void setMobileno(String mobileno) {
-		Mobileno = mobileno;
+		mobileno = mobileno;
 	}
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 	public void setAddress(String address) {
-		Address = address;
+		address = address;
 	}
 	
 	public List<AddClientDetails> getAddclientdetails() {

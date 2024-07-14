@@ -6,5 +6,5 @@ import eTender.example.eTender.Entity.CreateTender;
 
 public interface CreateTenderRepo extends JpaRepository<CreateTender,Integer>
 {
-
+	
 }

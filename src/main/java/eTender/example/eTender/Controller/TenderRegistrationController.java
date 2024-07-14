@@ -23,7 +23,8 @@ public class TenderRegistrationController {
 	TenderRegistrationRepo tenderregrepo;
 
 	@PostMapping("/TenderRegister")
-	public ResponseEntity<?> TenderRegister(@RequestBody TenderRegistration obj) {
+	public ResponseEntity<?> TenderRegister(@RequestBody TenderRegistration obj) 
+	{
 		tenderregrepo.save(obj);
 		return new ResponseEntity<>("Tender Registered Successfully", HttpStatus.OK);
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,24 +30,31 @@ public class CreateTender
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="Tenderid")
 	private int Tenderid;
 	
+	@Column(name="Tendername")
 	private String tendername;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name="Bidstardate")
 	private Date bidstardate;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name="Bidclosedate")
 	private Date bidclosedate;
 	
+	@Column(name="Description")
 	private String description;
+	
+	@Column(name="Status")
 	private String status;
 	
 	public int getTenderid() {
 		return Tenderid;
 	}
 	public void setTenderid(int tenderid) {
-		Tenderid = tenderid;
+		tenderid = tenderid;
 	}
 
 	public String getTendername() {

@@ -2,6 +2,7 @@ package eTender.example.eTender.Entity;
 
 import java.util.Random;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,9 +22,14 @@ import lombok.Setter;
 public class ApplyTender 
 {
 	@Id
+	@Column(name="apno")
 	private int apno;
-	private int TenderQuotation;
-	private String Status;
+	
+	@Column(name="tenderQuotation")
+	private int tenderQuotation;
+	
+	@Column(name="status")
+	private String status;
 	
 	public ApplyTender() 
 	 {
@@ -43,16 +49,16 @@ public class ApplyTender
 		this.apno = apno;
 	}
 	public int getTenderQuotation() {
-		return TenderQuotation;
+		return tenderQuotation;
 	}
 	public void setTenderQuotation(int tenderQuotation) {
-		TenderQuotation = tenderQuotation;
+		tenderQuotation = tenderQuotation;
 	}
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
 	
 	public CreateTender getCreatetender1() {

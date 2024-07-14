@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eTender.dto.ProjectworkInfoDTO;
+
 import eTender.example.eTender.Entity.AddClientDetails;
 import eTender.example.eTender.Entity.AddClientProjectwork;
 import eTender.example.eTender.Repository.AddClientDetailsRepo;
@@ -67,10 +69,21 @@ public class AddClientProjectworkController
 		        }
 			obj1.setStatus("Completed");	
 			addclientprojectworkrepo.save(obj1);	
-			return new ResponseEntity("Updated Successfully",HttpStatus.OK);
+			return new ResponseEntity<>("Updated Successfully",HttpStatus.OK);
 		}
 		else
-			return new ResponseEntity("project Id not found",HttpStatus.OK);
-		
+			return new ResponseEntity<>("project Id not found",HttpStatus.OK);
 	}
+	
+	/*this API is for displaying Projects in Tender Dashboard(Frontend)*/
+	@GetMapping("/GettodisplayProjects/{clientid}")
+	public ResponseEntity<?>GettodisplayProjects(@PathVariable Integer clientid)
+	{
+		List<ProjectworkInfoDTO> projectlist = addclientprojectworkrepo.findByClientId(clientid);
+    	if (projectlist.isEmpty())
+		 {
+		        return new ResponseEntity<>("No Projects found for the given Clientid", HttpStatus.NOT_FOUND);
+		    }
+        return new ResponseEntity<>(projectlist, HttpStatus.OK);
+    }
 }

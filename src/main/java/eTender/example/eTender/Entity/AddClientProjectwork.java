@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -13,7 +14,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -25,10 +25,17 @@ import lombok.Setter;
 public class AddClientProjectwork
 {
 	@Id
+	@Column(name="projectno")
 	private int projectno;
-	private String ClientProjectName;
-	private String Description;
-	private String Status;
+	
+	@Column(name="ClientProjectName")
+	private String clientProjectName;
+	
+	@Column(name="Description")
+	private String description;
+	
+	@Column(name="Status")
+	private String status;
 	
 	public AddClientProjectwork() 
 	 {
@@ -51,22 +58,22 @@ public class AddClientProjectwork
 	}
 
 	public String getClientProjectName() {
-		return ClientProjectName;
+		return clientProjectName;
 	}
 	public void setClientProjectName(String clientProjectName) {
-		ClientProjectName = clientProjectName;
+		clientProjectName = clientProjectName;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		description = description;
 	}
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		status = status;
 	}
 	
 	public AddClientDetails getAddclientdetails() {
